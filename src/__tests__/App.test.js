@@ -46,4 +46,23 @@ describe('<App /> integration', () => {
 
     expect(allRenderedEventItems.length).toBe(berlinEvents.length);
   });
+
+  // Feature 3: Scenario 2 integration test
+  test('updates rendered events count when user changes NumberOfEvents', async () => {
+    const user = userEvent.setup();
+    const { container } = render(<App />);
+    const appDOM = container.firstChild;
+
+    const numberDOM = appDOM.querySelector('#number-of-events');
+    const input =
+      within(numberDOM).queryByRole('spinbutton') ||
+      within(numberDOM).getByRole('textbox');
+
+    // default is "32" → remove and type "10"
+    await user.type(input, '{backspace}{backspace}10');
+
+    const listDOM = appDOM.querySelector('#event-list');
+    const items = within(listDOM).getAllByRole('listitem');
+    expect(items.length).toBe(10);
+  });
 });
