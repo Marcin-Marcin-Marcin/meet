@@ -6,22 +6,13 @@ const Event = ({ event }) => {
   if (!event) return null;
 
   return (
-    <li>
-      {/* collapsed summary info */}
+    <li className={`event ${showDetails ? 'event--expanded' : ''}`}>
       {event.summary && <h3>{event.summary}</h3>}
       {event.created && <p>{event.created}</p>}
       {event.location && <p>{event.location}</p>}
 
-      {/* toggle button */}
-      {!showDetails ? (
-        <button onClick={() => setShowDetails(true)}>Show details</button>
-      ) : (
-        <button onClick={() => setShowDetails(false)}>Hide details</button>
-      )}
-
-      {/* expanded details */}
       {showDetails && (
-        <div className="details">
+        <div className="event-details">
           {event.description && <p>{event.description}</p>}
           {event.htmlLink && (
             <p>
@@ -32,6 +23,13 @@ const Event = ({ event }) => {
           )}
         </div>
       )}
+
+      <button
+        className="details-btn"
+        onClick={() => setShowDetails((prev) => !prev)}
+      >
+        {showDetails ? 'Hide details' : 'Show details'}
+      </button>
     </li>
   );
 };
