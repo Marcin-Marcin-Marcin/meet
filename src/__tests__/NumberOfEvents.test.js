@@ -6,7 +6,7 @@ import NumberOfEvents from '../components/NumberOfEvents';
 describe('<NumberOfEvents /> component', () => {
   let Component;
   beforeEach(() => {
-    Component = render(<NumberOfEvents />);
+    Component = render(<NumberOfEvents setErrorAlert={() => {}} />);
   });
 
   test('renders a textbox input', () => {
@@ -16,7 +16,7 @@ describe('<NumberOfEvents /> component', () => {
 
   test('default value is 32', () => {
     const input = Component.queryByRole('textbox');
-    expect(input).toHaveValue('32'); 
+    expect(input).toHaveValue('32');
   });
 
   test('typing changes the value', async () => {
